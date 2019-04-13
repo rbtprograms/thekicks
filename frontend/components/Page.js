@@ -1,24 +1,26 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import Header from '../components/Header';
 import Meta from './Meta';
 import styled from 'styled-components';
 
-const MyButton = styled.button`
-  background: red;
-  font-size: ${props => props.huge ? '100px' : '50px'};
-  span {
-    font-size: 100px;
-  }
+const StyledPage = styled.div`
+  background: white;
+  color: black;
+`;
+
+//used to control how wide the app gets
+const InnerPage = styled.div`
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
 `;
 
 const Page = props => (
-  <Fragment>
+  <StyledPage>
     <Meta/>
     <Header />
-    <MyButton>Howdy<span>partner</span></MyButton>
-    <MyButton huge>Howdy<span>partner</span></MyButton>
-    {props.children}
-  </Fragment>
+    <InnerPage>{props.children}</InnerPage>
+  </StyledPage>
 )
 
 export default Page;
