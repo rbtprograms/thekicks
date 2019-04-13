@@ -13,31 +13,49 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_Header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Header */ "./components/Header.js");
 /* harmony import */ var _Meta__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Meta */ "./components/Meta.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 var _jsxFileName = "/Users/robertthompson/code/thekicks/frontend/components/Page.js";
 
 
 
 
+var MyButton = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].button.withConfig({
+  displayName: "Page__MyButton",
+  componentId: "sc-4u7a64-0"
+})(["background:red;font-size:50px;span{font-size}"]);
+
 var Page = function Page(props) {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 6
+      lineNumber: 15
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Meta__WEBPACK_IMPORTED_MODULE_2__["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 7
+      lineNumber: 16
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Header__WEBPACK_IMPORTED_MODULE_1__["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 8
+      lineNumber: 17
     },
     __self: this
-  }), props.children);
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(MyButton, {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 18
+    },
+    __self: this
+  }, "Howdy", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 18
+    },
+    __self: this
+  }, "partner")), props.children);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Page);
@@ -45,4 +63,4 @@ var Page = function Page(props) {
 /***/ })
 
 })
-//# sourceMappingURL=_app.js.6276a5b369e5afa6da83.hot-update.js.map
+//# sourceMappingURL=_app.js.4183d369838eb8b1746e.hot-update.js.map
