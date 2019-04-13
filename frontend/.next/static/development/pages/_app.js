@@ -217,7 +217,9 @@ var _jsxFileName = "/Users/robertthompson/code/thekicks/frontend/components/Page
 var MyButton = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].button.withConfig({
   displayName: "Page__MyButton",
   componentId: "sc-4u7a64-0"
-})(["background:red;font-size:50px;span{font-size:100px;}"]);
+})(["background:red;font-size:", ";span{font-size:100px;}"], function (props) {
+  return props.huge ? '100px' : '50px';
+});
 
 var Page = function Page(props) {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], {
@@ -248,6 +250,19 @@ var Page = function Page(props) {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 18
+    },
+    __self: this
+  }, "partner")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(MyButton, {
+    huge: true,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 19
+    },
+    __self: this
+  }, "Howdy", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 19
     },
     __self: this
   }, "partner")), props.children);
