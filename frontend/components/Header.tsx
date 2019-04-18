@@ -2,16 +2,16 @@ import Link from 'next/link';
 import styled from 'styled-components'
 import Nav from './Nav';
 import Router from 'next/router';
-import { start, done } from 'nprogress';
+import { start as nProgressStart, done as nProgressDone } from 'nprogress';
 
 Router.onRouteChangeStart = () => {
-  start();
+  nProgressStart();
 }
 Router.onRouteChangeComplete = () => {
-  done();
+  nProgressDone();
 }
 Router.onRouteChangeError = () => {
-  done();
+  nProgressDone();
 }
 
 const Logo = styled.h1`
