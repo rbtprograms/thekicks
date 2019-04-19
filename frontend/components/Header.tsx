@@ -23,7 +23,7 @@ const Logo = styled.h1`
   transform: skew(-7deg);
   a {
     padding: 0.5rem 1rem;
-    background: ${props => props.theme.red};
+    background-color: ${props => props.theme.red};
     color: white;
     text-transform: uppercase;
     text-decoration: none;
@@ -53,7 +53,7 @@ const StyledHeader = styled.header`
   }
 `;
 
-const Header: React.FunctionComponent = () => (
+const Header = () => (
   <StyledHeader>
     <div className='bar'>
       <Logo>
