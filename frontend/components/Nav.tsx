@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import NavStyles from './styles/NavStyles'
 
-const Nav = props => (
+const Nav = () => (
   <NavStyles>
     <Link href='/items'>
       <a>Items</a>

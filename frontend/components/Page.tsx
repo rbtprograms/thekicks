@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { ThemeProvider, injectGlobal } from 'styled-components';
-import Header from '../components/Header';
+import Header from './Header';
 import Meta from './Meta';
 
 const theme = {
@@ -26,13 +26,13 @@ const InnerPage = styled.div`
 `;
 
 injectGlobal`
-@font-face {
-  font-family: 'radnika_next';
-  src: url('/static/radnikanext-medium-webfont.woff2')
-  format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}}
+  @font-face {
+    font-family: 'radnika_next';
+    src: url('/static/radnikanext-medium-webfont.woff2')
+    format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
   html {
     box-sizing: border-box;
     font-size: 10px;
@@ -51,7 +51,7 @@ injectGlobal`
     text-decoration: none;
     color: ${theme.black};
   }
-`
+`;
 
 const Page = props => (
   <ThemeProvider theme={theme}>
