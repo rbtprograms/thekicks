@@ -53,12 +53,12 @@ injectGlobal`
   }
 `;
 
-const Page: React.FunctionComponent = props => (
+const Page: React.FunctionComponent = ({ children }) => (
   <ThemeProvider theme={theme}>
     <StyledPage>
       <Meta/>
       <Header />
-      <InnerPage>{props.children}</InnerPage>
+      <InnerPage>{children}</InnerPage>
     </StyledPage>
   </ThemeProvider>
 )
