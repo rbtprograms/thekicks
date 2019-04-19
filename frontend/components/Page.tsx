@@ -53,7 +53,7 @@ injectGlobal`
   }
 `;
 
-const Page = props => (
+const Page: React.FunctionComponent = props => (
   <ThemeProvider theme={theme}>
     <StyledPage>
       <Meta/>

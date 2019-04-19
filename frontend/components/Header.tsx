@@ -1,3 +1,4 @@
+import React from 'react'
 import Link from 'next/link';
 import styled from 'styled-components'
 import Nav from './Nav';
@@ -52,7 +53,7 @@ const StyledHeader = styled.header`
   }
 `;
 
-const Header = () => (
+const Header: React.FunctionComponent = () => (
   <StyledHeader>
     <div className='bar'>
       <Logo>
