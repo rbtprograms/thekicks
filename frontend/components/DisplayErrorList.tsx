@@ -1,7 +1,7 @@
 import React from 'react';
 import DisplayError from './DisplayError';
 
-type ErrorProps = {
+interface ErrorProps {
   error: {
     networkError?: {
       result: {
