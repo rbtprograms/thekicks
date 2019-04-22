@@ -5,6 +5,8 @@ interface FormProps {
   handleSubmit: (event: SyntheticEvent) => void 
   values: {
     title?: string,
+    price?: number,
+    description?: string,
   }
 }
 
@@ -17,10 +19,13 @@ const useForm = (initialValues, callback): FormProps => {
   };
   
   const handleChange = event => {
+    const { value, name, type } = event.target;
+    const val = type === 'number' ? parseFloat(value) : value;
+
     event.persist();
     setValues(values => ({
       ...values,
-      [event.target.name]: event.target.value
+      [name]: val
     }))
     callback();
   };

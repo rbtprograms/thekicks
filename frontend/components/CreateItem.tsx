@@ -8,7 +8,10 @@ import useForm from '../state/useForm';
 const CreateItem: React.FunctionComponent = () => {
   const placeHolderSubmitFunction = () => console.log(values);
   const initialValues = {
-    title: ''
+    title: '',
+    price: '',
+    description: ''
+
   }
   const { values, handleChange, handleSubmit } = useForm(initialValues, placeHolderSubmitFunction);
   return (
@@ -26,7 +29,31 @@ const CreateItem: React.FunctionComponent = () => {
             value={values.title}
           />
         </label>
-      </fieldset>>
+        <label htmlFor='Price'>
+          Price
+          <input 
+            id="price" 
+            name="price" 
+            onChange={handleChange}
+            placeholder="Price" 
+            required
+            type="number" 
+            value={values.price}
+          />
+        </label>
+        <label htmlFor='Description'>
+          Description
+          <input 
+            id="description" 
+            name="description" 
+            onChange={handleChange}
+            placeholder="Description" 
+            required
+            type="text" 
+            value={values.description}
+          />
+        </label>
+      </fieldset>
     </Form>
   )
 };
