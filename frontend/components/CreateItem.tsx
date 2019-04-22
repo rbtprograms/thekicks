@@ -7,7 +7,10 @@ import useForm from '../state/useForm';
 
 const CreateItem: React.FunctionComponent = () => {
   const placeHolderSubmitFunction = () => console.log(values);
-  const { values, handleChange, handleSubmit } = useForm(placeHolderSubmitFunction);
+  const initialValues = {
+    title: ''
+  }
+  const { values, handleChange, handleSubmit } = useForm(initialValues, placeHolderSubmitFunction);
   return (
     <Form>
       <fieldset>
