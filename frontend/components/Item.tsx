@@ -5,7 +5,7 @@ import PriceTag from './styles/PriceTag';
 
 interface Props {
   item: {
-    title
+    title: String
   }
 }
 

@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { ReactText } from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
+import Item from './Item';
 
 interface RenderProps {
   data: {
-    items: Array<Object>
+    items: Array<{
+      id: ReactText
+      title: String
+    }>
   },
   error?: any,
   loading: boolean
@@ -52,7 +56,12 @@ const Items = () => {
           } else {
             dom = 
               <ItemsList>
-                {data.items.map(item => <p>{item.title}</p>)}
+                {data.items.map(item => (
+                  <Item
+                    key={item.id}
+                    item={item}
+                  />
+                ))}
               </ItemsList>
             ;
           }
