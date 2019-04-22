@@ -8,7 +8,10 @@ interface RenderProps {
   data: {
     items: Array<{
       id: ReactText
-      title: String
+      title: String,
+      price: number,
+      description: String,
+      image: string
     }>
   },
   error?: any,
