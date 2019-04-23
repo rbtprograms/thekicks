@@ -3,6 +3,7 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import Form from './styles/Form';
 import formatMoney from '../lib/formatMoney';
+import upperCasedFirstLetter from '../lib/upperCase';
 import useForm from '../state/useForm';
 
 const CreateItem: React.FunctionComponent = () => {
@@ -11,51 +12,47 @@ const CreateItem: React.FunctionComponent = () => {
     title: '',
     price: '',
     description: ''
-
   }
   const { values, handleChange, handleSubmit } = useForm(initialValues, placeHolderSubmitFunction);
   return (
     <Form>
       <fieldset>
-        <label htmlFor='Title'>
-          Title
-          <input 
-            id="title" 
-            name="title" 
-            onChange={handleChange}
-            placeholder="Title" 
-            required
-            type="text" 
-            value={values.title}
+        <ItemInput
+          name='title'
+          handleChange={handleChange}
+          value={values.title}
           />
-        </label>
-        <label htmlFor='Price'>
-          Price
-          <input 
-            id="price" 
-            name="price" 
-            onChange={handleChange}
-            placeholder="Price" 
-            required
-            type="number" 
-            value={values.price}
+        <ItemInput
+          name='price'
+          handleChange={handleChange}
+          value={values.price}
           />
-        </label>
-        <label htmlFor='Description'>
-          Description
-          <input 
-            id="description" 
-            name="description" 
-            onChange={handleChange}
-            placeholder="Description" 
-            required
-            type="text" 
-            value={values.description}
-          />
-        </label>
+        <ItemInput
+          name='description'
+          handleChange={handleChange}
+          value={values.description}
+        />
       </fieldset>
     </Form>
   )
 };
 
 export default CreateItem;
+
+const ItemInput = props => {
+  const upperCased = upperCasedFirstLetter(props.name);
+  return (
+  <label htmlFor={upperCased}>
+    {upperCased}
+    <input 
+      id={props.name} 
+      name={props.name} 
+      onChange={props.handleChange}
+      placeholder={upperCased} 
+      required
+      type={props.type} 
+      value={props.value}
+    />
+  </label>
+  );
+}
