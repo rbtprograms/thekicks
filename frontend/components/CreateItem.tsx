@@ -4,6 +4,28 @@ import gql from 'graphql-tag';
 import Form from './styles/Form';
 import formatMoney from '../lib/formatMoney';
 import useForm from '../state/useForm';
+import Input from './shared/Input';
+import Error from './DisplayErrorList';
+
+const CREATE_ITEM_MUTATION = gql`
+  mutation CREATE_ITEM_MUTATION(
+    $title: String!
+    $description: String!
+    $price: Int!
+    $image: String
+    $largeImage: String
+  ) {
+    createItem(
+      title: $title
+      description: $description
+      price: $price
+      image: $image
+      largeImage: $largeImage
+    ) {
+      id
+    }
+  }
+`;
 
 const CreateItem: React.FunctionComponent = () => {
   const placeHolderSubmitFunction = () => console.log(values);
@@ -11,51 +33,55 @@ const CreateItem: React.FunctionComponent = () => {
     title: '',
     price: '',
     description: ''
-
   }
-  const { values, handleChange, handleSubmit } = useForm(initialValues, placeHolderSubmitFunction);
+  const { values, handleChange } = useForm(initialValues);
   return (
-    <Form>
-      <fieldset>
-        <label htmlFor='Title'>
-          Title
-          <input 
-            id="title" 
-            name="title" 
-            onChange={handleChange}
-            placeholder="Title" 
-            required
-            type="text" 
-            value={values.title}
+    <Mutation
+      mutation={CREATE_ITEM_MUTATION}
+      variables={values}
+    >
+      {(createItem: () => void, {loading, error}: any) => (
+        <Form
+        onSubmit={async (e: { preventDefault: () => void; }) => {
+          e.preventDefault();
+          const res = await createItem();
+          console.log(res);
+        }}
+        >
+          <Error
+            error={error}
           />
-        </label>
-        <label htmlFor='Price'>
-          Price
-          <input 
-            id="price" 
-            name="price" 
-            onChange={handleChange}
-            placeholder="Price" 
-            required
-            type="number" 
-            value={values.price}
-          />
-        </label>
-        <label htmlFor='Description'>
-          Description
-          <input 
-            id="description" 
-            name="description" 
-            onChange={handleChange}
-            placeholder="Description" 
-            required
-            type="text" 
-            value={values.description}
-          />
-        </label>
-      </fieldset>
-    </Form>
+          <fieldset disabled={loading} aria-busy={loading}>
+            <Input
+              name='title'
+              handleChange={handleChange}
+              type='text'
+              value={values.title}
+              />
+            <Input
+              name='price'
+              handleChange={handleChange}
+              type='number'
+              value={values.price}
+              />
+              <label htmlFor='description'>
+                Description
+                <textarea 
+                  id='description' 
+                  name='description' 
+                  onChange={handleChange}
+                  placeholder='Enter a Description'
+                  required
+                  value={values.description}
+                  />
+              </label>
+              <button type='submit'>Submit</button>
+          </fieldset>
+        </Form>
+      )}
+    </Mutation>
   )
 };
 
 export default CreateItem;
+export { CREATE_ITEM_MUTATION }

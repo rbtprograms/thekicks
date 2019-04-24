@@ -1,8 +1,7 @@
-import { useState, SyntheticEvent } from 'react';
+import { useState } from 'react';
 
 interface FormProps {
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void, 
-  handleSubmit: (event: SyntheticEvent) => void 
+  handleChange: (event: React.ChangeEvent<any>) => void, 
   values: {
     title?: string,
     price?: number,
@@ -10,13 +9,8 @@ interface FormProps {
   }
 }
 
-const useForm = (initialValues, callback): FormProps => {
+const useForm = (initialValues): FormProps => {
   const [values, setValues] = useState(initialValues);
-
-  const handleSubmit = event => {
-    if (event) event.preventDefault();
-    callback();
-  };
   
   const handleChange = event => {
     const { value, name, type } = event.target;
@@ -27,12 +21,10 @@ const useForm = (initialValues, callback): FormProps => {
       ...values,
       [name]: val
     }))
-    callback();
-  };
+  };  
 
   return {
     handleChange,
-    handleSubmit,
     values
   }
 }
