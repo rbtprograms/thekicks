@@ -1,6 +1,7 @@
 import React from 'react'
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import Router from 'next/router'
 import Form from './styles/Form';
 import formatMoney from '../lib/formatMoney';
 import useForm from '../state/useForm';
@@ -40,12 +41,16 @@ const CreateItem: React.FunctionComponent = () => {
       mutation={CREATE_ITEM_MUTATION}
       variables={values}
     >
-      {(createItem: () => void, {loading, error}: any) => (
+      {(createItem: () => any, {loading, error}: any) => (
         <Form
         onSubmit={async (e: { preventDefault: () => void; }) => {
           e.preventDefault();
           const res = await createItem();
           console.log(res);
+          Router.push({
+            pathname: '/item',
+            query: { id: res.data.createItem.id }
+          })
         }}
         >
           {error &&
