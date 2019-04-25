@@ -5,7 +5,7 @@ import Form from './styles/Form';
 import formatMoney from '../lib/formatMoney';
 import useForm from '../state/useForm';
 import Input from './shared/Input';
-import Error from './DisplayErrorList';
+import DisplayErrors from './DisplayErrors';
 
 const CREATE_ITEM_MUTATION = gql`
   mutation CREATE_ITEM_MUTATION(
@@ -48,9 +48,11 @@ const CreateItem: React.FunctionComponent = () => {
           console.log(res);
         }}
         >
-          <Error
-            error={error}
-          />
+          {error &&
+            <DisplayErrors
+              error={error}
+            />
+          }
           <fieldset disabled={loading} aria-busy={loading}>
             <Input
               name='title'
