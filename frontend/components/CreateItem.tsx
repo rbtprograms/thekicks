@@ -29,13 +29,12 @@ const CREATE_ITEM_MUTATION = gql`
 `;
 
 const CreateItem: React.FunctionComponent = () => {
-  const placeHolderSubmitFunction = () => console.log(values);
   const initialValues = {
     title: '',
     price: '',
     description: ''
   }
-  const { values, handleChange } = useForm(initialValues);
+  const { values, handleChange, handleUpload } = useForm(initialValues);
   return (
     <Mutation
       mutation={CREATE_ITEM_MUTATION}
@@ -43,15 +42,15 @@ const CreateItem: React.FunctionComponent = () => {
     >
       {(createItem: () => any, {loading, error}: any) => (
         <Form
-        onSubmit={async (e: { preventDefault: () => void; }) => {
-          e.preventDefault();
-          const res = await createItem();
-          console.log(res);
-          Router.push({
-            pathname: '/item',
-            query: { id: res.data.createItem.id }
-          })
-        }}
+          onSubmit={async (e: { preventDefault: () => void; }) => {
+            e.preventDefault();
+            const res = await createItem();
+            console.log(res);
+            Router.push({
+              pathname: '/item',
+              query: { id: res.data.createItem.id }
+            })
+          }}
         >
           {error &&
             <DisplayErrors
@@ -60,29 +59,35 @@ const CreateItem: React.FunctionComponent = () => {
           }
           <fieldset disabled={loading} aria-busy={loading}>
             <Input
+              name='image'
+              handleChange={handleUpload}
+              placeholder={'Choose an image to upload...'}
+              type='file'
+            />
+            <Input
               name='title'
               handleChange={handleChange}
               type='text'
               value={values.title}
-              />
+            />
             <Input
               name='price'
               handleChange={handleChange}
               type='number'
               value={values.price}
-              />
-              <label htmlFor='description'>
-                Description
-                <textarea 
-                  id='description' 
-                  name='description' 
-                  onChange={handleChange}
-                  placeholder='Enter a Description'
-                  required
-                  value={values.description}
-                  />
-              </label>
-              <button type='submit'>Submit</button>
+            />
+            <label htmlFor='description'>
+              Description
+              <textarea 
+                id='description' 
+                name='description' 
+                onChange={handleChange}
+                placeholder='Enter a Description'
+                required
+                value={values.description}
+                />
+            </label>
+            <button type='submit'>Submit</button>
           </fieldset>
         </Form>
       )}
