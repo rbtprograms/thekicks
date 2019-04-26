@@ -20,12 +20,12 @@ type Error = {
   message: string
 }
 
-const DisplayError: React.FunctionComponent<Error> = (props) => {
+const DisplayError: React.FunctionComponent<Error> = ({message}) => {
   return (
     <ErrorStyles>
       <p data-test="graphql-error">
         <strong>Shoot!</strong>
-        {props.message.replace('GraphQL error: ', '')}
+        {message.replace('GraphQL error: ', '')}
       </p>
     </ErrorStyles>
   );

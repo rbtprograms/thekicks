@@ -2,13 +2,14 @@ import React from 'react'
 import upperCasedFirstLetter from '../../lib/upperCase';
 
 interface Props {
-  name: string,
   handleChange: (event: React.ChangeEvent<HTMLElement>) => void,
+  placeholder?: string,
+  name: string,
   type: string,
-  value: any
+  value?: any
 }
 
-const Input: React.FunctionComponent<Props> = ({ name, type, value, handleChange }) => {
+const Input: React.FunctionComponent<Props> = ({ placeholder, name, type, value, handleChange }) => {
   const upperCased = upperCasedFirstLetter(name);
   return (
   <label htmlFor={upperCased}>
@@ -17,7 +18,7 @@ const Input: React.FunctionComponent<Props> = ({ name, type, value, handleChange
       id={name} 
       name={name} 
       onChange={handleChange}
-      placeholder={upperCased} 
+      placeholder={placeholder || upperCased} 
       required
       type={type} 
       value={value}
