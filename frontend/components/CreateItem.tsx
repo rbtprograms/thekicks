@@ -32,7 +32,7 @@ const CreateItem: React.FunctionComponent = () => {
   const initialValues = {
     title: '',
     price: '',
-    description: ''
+    description: '',
   }
   const { values, handleChange, handleUpload } = useForm(initialValues);
   return (
@@ -64,6 +64,14 @@ const CreateItem: React.FunctionComponent = () => {
               placeholder={'Choose an image to upload...'}
               type='file'
             />
+            {values.image 
+              ? <img 
+                  alt='Uploaded Image'
+                  src={values.image} 
+                  width='200'
+                />
+              : null
+            }
             <Input
               name='title'
               handleChange={handleChange}
