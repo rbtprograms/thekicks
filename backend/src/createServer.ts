@@ -1,10 +1,10 @@
 const { GraphQLServer } = require('graphql-yoga');
-const Mutation = require('./resolvers/Mutation');
-const Query = require('./resolvers/Query');
-const db = require('./db');
+const Mutation = require('./resolvers/Mutation.ts');
+const Query = require('./resolvers/Query.ts');
+const db = require('./db.ts');
 
 //instantiate server
-function createServer() {
+module.exports = () => {
   return new GraphQLServer({
     typeDefs: 'src/schema.graphql',
     resolvers: {
@@ -17,5 +17,3 @@ function createServer() {
     context: req => ({ ...req, db }),
   });
 }
-
-module.exports = createServer;
