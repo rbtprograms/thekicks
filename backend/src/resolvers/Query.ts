@@ -1,6 +1,6 @@
 const { forwardTo } = require('prisma-binding');
 
-const Query = {
+module.exports = {
   //useful for quickly setting stuff up and mocking, onyl works for basic mutations and queries
   items: forwardTo('db')
   // async items(parent, args, context, info) {
@@ -8,5 +8,3 @@ const Query = {
   //   return items;
   // }
 };
-
-module.exports = Query;
