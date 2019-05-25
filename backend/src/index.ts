@@ -7,6 +7,6 @@ server.start({
     credentials: true,
     origin: process.env.FRONTEND_URL
   },
-}, details => {
-  console.log(`server is now running on port ${details.port}`);
+}, ({ port }) => {
+  console.log(`server is now running on port ${port}`);
 });
