@@ -20,20 +20,21 @@ query SINGLE_ITEM_QUERY($id: ID!) {
 
 const UPDATE_ITEM_MUTATION = gql`
   mutation UPDATE_ITEM_MUTATION(
-    $title: String!
-    $description: String!
-    $price: Int!
-    $image: String
-    $largeImage: String
+    $id: ID!
+    $title: String
+    $description: String
+    $price: Int
   ) {
-    createItem(
+    updateItem(
+      id: $id
       title: $title
       description: $description
       price: $price
-      image: $image
-      largeImage: $largeImage
     ) {
       id
+      title
+      description
+      price
     }
   }
 `;
@@ -45,28 +46,33 @@ interface Props {
 const UpdateItem: React.FunctionComponent<Props> = ({ id }) => {
   const initialValues = {}
   const { values, handleChange } = useForm(initialValues);
+  const handleUpdateItem = async (e, mutation) => {
+    e.preventDefault();
+    console.log('updating item!');
+    console.log(e, mutation);
+    const res = await mutation({
+      variables: {
+        id: id,
+        ...values
+      }
+    });
+    console.log(res);
+  }
   return (
     <Query 
       query={SINGLE_ITEM_QUERY} variables={{ id: id }}>
         {({ data, loading }) => {
           const { item: queriedItem } = data;
           if(loading) return <p>Loading...</p>
+          if(!data.item) return <p>{`No item found for id ${id}`}</p>
           return (
             <Mutation
               mutation={UPDATE_ITEM_MUTATION}
               variables={values}
             >
-              {(createItem: () => any, {loading, error}: any) => (
+              {(updateItem: () => any, {loading, error}: any) => (
                 <Form
-                  onSubmit={async (e: { preventDefault: () => void; }) => {
-                    e.preventDefault();
-                    const res = await createItem();
-                    console.log(res);
-                    Router.push({
-                      pathname: '/item',
-                      query: { id: res.data.createItem.id }
-                    })
-                  }}
+                  onSubmit={e => handleUpdateItem(e, updateItem)}
                 >
                   {error &&
                     <DisplayErrors
