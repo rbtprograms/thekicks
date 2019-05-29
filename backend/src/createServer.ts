@@ -4,6 +4,7 @@ const Query = require('./resolvers/Query.ts');
 const db = require('./db.ts');
 
 //instantiate server
+
 module.exports = () => {
   return new GraphQLServer({
     typeDefs: 'src/schema.graphql',
@@ -14,6 +15,6 @@ module.exports = () => {
     resolverValidationOptions: {
       requireResolversForResolveType: false
     },
-    context: req => ({ ...req, db }),
+   context: req => ({ ...req, db }),
   });
 }
