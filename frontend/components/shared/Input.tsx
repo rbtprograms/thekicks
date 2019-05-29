@@ -6,15 +6,17 @@ interface Props {
   placeholder?: string,
   name: string,
   type: string,
-  value?: any
+  value?: any,
+  defaultValue?: string
 }
 
-const Input: React.FunctionComponent<Props> = ({ placeholder, name, type, value, handleChange }) => {
+const Input: React.FunctionComponent<Props> = ({ placeholder, name, type, value, handleChange, defaultValue }) => {
   const upperCased = upperCasedFirstLetter(name);
   return (
   <label htmlFor={upperCased}>
     {upperCased}
-    <input 
+    <input
+      defaultValue={defaultValue} 
       id={name} 
       name={name} 
       onChange={handleChange}

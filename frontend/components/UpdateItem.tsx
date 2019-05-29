@@ -48,7 +48,8 @@ const UpdateItem: React.FunctionComponent<Props> = ({ id }) => {
   return (
     <Query 
       query={SINGLE_ITEM_QUERY} variables={{ id: id }}>
-        {({data, loading}) => {
+        {({ data, loading }) => {
+          const { item: queriedItem } = data;
           if(loading) return <p>Loading...</p>
           return (
             <Mutation
@@ -77,14 +78,16 @@ const UpdateItem: React.FunctionComponent<Props> = ({ id }) => {
                       name='title'
                       handleChange={handleChange}
                       type='text'
+                      defaultValue={queriedItem.title}
                       value={values.title}
-                    />
+                      />
                     <Input
                       name='price'
                       handleChange={handleChange}
                       type='number'
+                      defaultValue={queriedItem.price}
                       value={values.price}
-                    />
+                      />
                     <label htmlFor='description'>
                       Description
                       <textarea 
@@ -93,6 +96,7 @@ const UpdateItem: React.FunctionComponent<Props> = ({ id }) => {
                         onChange={handleChange}
                         placeholder='Enter a Description'
                         required
+                        defaultValue={queriedItem.description}
                         value={values.description}
                         />
                     </label>
