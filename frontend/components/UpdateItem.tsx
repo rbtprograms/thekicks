@@ -48,8 +48,6 @@ const UpdateItem: React.FunctionComponent<Props> = ({ id }) => {
   const { values, handleChange } = useForm(initialValues);
   const handleUpdateItem = async (e, mutation) => {
     e.preventDefault();
-    console.log('updating item!');
-    console.log(e, mutation);
     const res = await mutation({
       variables: {
         id: id,
@@ -70,7 +68,7 @@ const UpdateItem: React.FunctionComponent<Props> = ({ id }) => {
               mutation={UPDATE_ITEM_MUTATION}
               variables={values}
             >
-              {(updateItem: () => any, {loading, error}: any) => (
+              {(updateItem: () => any, { loading, error }: any) => (
                 <Form
                   onSubmit={e => handleUpdateItem(e, updateItem)}
                 >
