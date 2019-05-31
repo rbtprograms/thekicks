@@ -44,7 +44,10 @@ const Item: React.FunctionComponent<Props> = ({ item }) => (
         <a>Edit</a>
       </Link>
       <button>Add to cart</button>
-      <DeleteItem id={item.id}>Delete</DeleteItem>
+      <DeleteItem 
+        id={item.id}
+        text={'Delete'}  
+      />
     </div>
   </ItemStyles>
 );
