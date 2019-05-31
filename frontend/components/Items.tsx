@@ -76,3 +76,4 @@ const Items = () => {
 }
 
 export default Items;
+export { ALL_ITEMS_QUERY };
