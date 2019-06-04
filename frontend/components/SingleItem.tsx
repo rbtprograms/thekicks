@@ -46,11 +46,12 @@ const SingleItem: React.FunctionComponent<Props> = ({ id }) => {
         id
       }}
     >
-      {({ error, loading, data }) => {
+      {result => {
+        const { error, loading, data } = result;
         const { item } = data;
         if (error) return <Error error={error}/>;
         if (loading) return <p>Loading...</p>
-        if (item) return <p>No item found for item id: ${id}</p>
+        if (!item) return <p>No item found for item id: ${id}</p>
         return <SingleItemStyles>
           <Head>
             <title>theKicks | {item.title}</title>
