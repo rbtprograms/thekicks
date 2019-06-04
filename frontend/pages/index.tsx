@@ -1,9 +1,15 @@
 import React from 'react';
 import Items from '../components/Items';
 
-const Home = () => (
+interface Props {
+  query: {
+    page: string
+  }
+}
+
+const Home: React.FunctionComponent<Props> = ({ query }) => (
   <div>
-    <Items/>
+    <Items page={parseFloat(query.page) || 1}/>
   </div>
 )
 
