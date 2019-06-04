@@ -51,16 +51,13 @@ const ItemsList = styled.div`
 const Items: React.FunctionComponent<Props> = ({ page }) => {
   return (
     <Center>
-      <p>Howdy</p>
-      <Pagination
-        page={page}
-      >
+      <Pagination page={page}/>
       <Query
         query={ALL_ITEMS_QUERY}
       >
         {({ data, error, loading }: RenderProps) => {
           let dom = null;
-          if(loading) {
+          if (loading) {
             dom = <p>Loading...</p>;
           } else if (error) {
             dom = <p>Error: {error.message}</p>;
@@ -79,7 +76,7 @@ const Items: React.FunctionComponent<Props> = ({ page }) => {
           return dom;
         }}
       </Query>
-      </Pagination>
+      <Pagination page={page}/>
     </Center>
   );
 }
