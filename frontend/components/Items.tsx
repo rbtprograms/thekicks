@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import styled from 'styled-components';
 import Item from './Item';
 import Pagination from './Pagination';
+import { perPage } from '../config';
 
 interface Props {
   page: number
@@ -24,8 +25,8 @@ interface RenderProps {
 }
 
 const ALL_ITEMS_QUERY = gql`
-  query ALL_ITEMS_QUERY {
-    items {
+  query ALL_ITEMS_QUERY($skip: Int = 0, $first: Int = ${perPage}) {
+    items(first: $first, skip: $skip, orderBy: price_DESC) {
       id
       title
       price
@@ -54,6 +55,9 @@ const Items: React.FunctionComponent<Props> = ({ page }) => {
       <Pagination page={page}/>
       <Query
         query={ALL_ITEMS_QUERY}
+        //the below fetch policy forgoes cache entirely
+        //fetchPolicy="network-only"
+        variables={{ skip: page * perPage - perPage }}
       >
         {({ data, error, loading }: RenderProps) => {
           let dom = null;
