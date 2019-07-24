@@ -50,9 +50,10 @@
     "enzyme-to-json": "^3.3.4",
     "eslint": "5.16.0",
     "graphql-tools": "^4.0.0",
-    "typescript": "3.2.4",
     "jest": "^23.6.0",
-    "jest-transform-graphql": "^2.1.0"
+    "jest-transform-graphql": "^2.1.0",
+    "prettier": "^1.18.2",
+    "typescript": "3.2.4"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/jest.setup.js",

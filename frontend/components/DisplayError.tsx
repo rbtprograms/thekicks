@@ -17,8 +17,8 @@ const ErrorStyles = styled.div`
 `;
 
 type Error = {
-  message: string
-}
+  message: string;
+};
 
 const DisplayError: React.FunctionComponent<Error> = ({ message }) => {
   return (

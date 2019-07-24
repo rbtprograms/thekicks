@@ -1,4 +1,4 @@
-import React, { Fragment, ReactText } from 'react'
+import React, { Fragment, ReactText } from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import Error from './DisplayErrors';
@@ -25,8 +25,8 @@ const SingleItemStyles = styled.div`
 `;
 
 type Props = {
-  id: ReactText
-}
+  id: ReactText;
+};
 
 const SINGLE_ITEM_QUERY = gql`
   query SINGLE_ITEM_QUERY($id: ID!) {
@@ -43,28 +43,30 @@ const SingleItem: React.FunctionComponent<Props> = ({ id }) => {
     <Query
       query={SINGLE_ITEM_QUERY}
       variables={{
-        id
+        id,
       }}
     >
       {result => {
         const { error, loading, data } = result;
         const { item } = data;
-        if (error) return <Error error={error}/>;
-        if (loading) return <p>Loading...</p>
-        if (!item) return <p>No item found for item id: ${id}</p>
-        return <SingleItemStyles>
-          <Head>
-            <title>theKicks | {item.title}</title>
-          </Head>
-          <img src={item.largeImage} alt={item.title}/>
-          <div className='details'>
-            <h2>Viewing {item.title}</h2>
-            <p>{item.description}</p>
-          </div>
-        </SingleItemStyles>
+        if (error) return <Error error={error} />;
+        if (loading) return <p>Loading...</p>;
+        if (!item) return <p>No item found for item id: ${id}</p>;
+        return (
+          <SingleItemStyles>
+            <Head>
+              <title>theKicks | {item.title}</title>
+            </Head>
+            <img src={item.largeImage} alt={item.title} />
+            <div className="details">
+              <h2>Viewing {item.title}</h2>
+              <p>{item.description}</p>
+            </div>
+          </SingleItemStyles>
+        );
       }}
     </Query>
-  )
-}
+  );
+};
 
 export default SingleItem;

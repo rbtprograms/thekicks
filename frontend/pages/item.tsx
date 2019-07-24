@@ -3,16 +3,14 @@ import SingleItem from '../components/SingleItem';
 
 type Props = {
   query: {
-    id: ReactText
-  }
-}
+    id: ReactText;
+  };
+};
 
 const Item = ({ query }: Props) => (
   <div>
-    <SingleItem
-      id={query.id}
-    />
+    <SingleItem id={query.id} />
   </div>
-)
+);
 
 export default Item;
