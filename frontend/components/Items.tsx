@@ -10,20 +10,6 @@ interface Props {
   page: number
 }
 
-interface RenderProps {
-  data: {
-    items: Array<{
-      id: ReactText
-      title: String,
-      price: number,
-      description: String,
-      image: string
-    }>
-  },
-  error?: any,
-  loading: boolean
-}
-
 const ALL_ITEMS_QUERY = gql`
   query ALL_ITEMS_QUERY($skip: Int = 0, $first: Int = ${perPage}) {
     items(first: $first, skip: $skip, orderBy: price_DESC) {

@@ -1,5 +1,11 @@
 import { useState } from 'react';
 
+interface InitalValues {
+  title?: string,
+  price?: string,
+  description?: string,
+}
+
 interface FormProps {
   handleChange: (event: React.ChangeEvent<any>) => void, 
   handleUpload: (event: React.ChangeEvent<any>) => void, 
@@ -12,7 +18,7 @@ interface FormProps {
   }
 }
 
-const useForm = (initialValues): FormProps => {
+const useForm = (initialValues: InitalValues): FormProps => {
   const [values, setValues] = useState(initialValues);
   
   const handleChange = event => {
@@ -38,7 +44,6 @@ const useForm = (initialValues): FormProps => {
       body: data
     });
     const file = await res.json();
-    console.log(file);
     setValues(values => ({
       ...values,
       image: file.secure_url,
