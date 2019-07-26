@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-import Router from 'next/router'
+import Router from 'next/router';
 import Form from './styles/Form';
 import formatMoney from '../lib/formatMoney';
 import useForm from '../state/useForm';
@@ -33,75 +33,62 @@ const CreateItem: React.FunctionComponent = () => {
     title: '',
     price: '',
     description: '',
-  }
+  };
   const { values, handleChange, handleUpload } = useForm(initialValues);
   return (
-    <Mutation
-      mutation={CREATE_ITEM_MUTATION}
-      variables={values}
-    >
-      {(createItem: () => any, {loading, error}: any) => (
+    <Mutation mutation={CREATE_ITEM_MUTATION} variables={values}>
+      {(createItem: () => any, { loading, error }: any) => (
         <Form
-          onSubmit={async (e: { preventDefault: () => void; }) => {
+          onSubmit={async (e: { preventDefault: () => void }) => {
             e.preventDefault();
             const res = await createItem();
-            console.log(res);
             Router.push({
               pathname: '/item',
-              query: { id: res.data.createItem.id }
-            })
+              query: { id: res.data.createItem.id },
+            });
           }}
         >
-          {error &&
-            <DisplayErrors
-              error={error}
-            />
-          }
+          {error && <DisplayErrors error={error} />}
           <fieldset disabled={loading} aria-busy={loading}>
             <Input
-              name='image'
+              name="image"
               handleChange={handleUpload}
               placeholder={'Choose an image to upload...'}
-              type='file'
+              type="file"
             />
-            {values.image 
-              ? <img 
-                  alt='Uploaded Image'
-                  src={values.image} 
-                  width='200'
-                />
-              : null
-            }
+            {values.image ? (
+              <img alt="Uploaded Image" src={values.image} width="200" />
+            ) : null}
             <Input
-              name='title'
+              name="title"
               handleChange={handleChange}
-              type='text'
+              type="text"
               value={values.title}
             />
             <Input
-              name='price'
+              name="price"
               handleChange={handleChange}
-              type='number'
+              type="number"
               value={values.price}
             />
-            <label htmlFor='description'>
+            <label htmlFor="description">
               Description
-              <textarea 
-                id='description' 
-                name='description' 
+              <textarea
+                id="description"
+                name="description"
                 onChange={handleChange}
-                placeholder='Enter a Description'
+                placeholder="Enter a Description"
                 required
                 value={values.description}
-                />
+              />
             </label>
-            <button type='submit'>Submit</button>
+            <button type="submit">Submit</button>
           </fieldset>
         </Form>
       )}
     </Mutation>
-  )
+  );
 };
 
 export default CreateItem;
-export { CREATE_ITEM_MUTATION }
+export { CREATE_ITEM_MUTATION };

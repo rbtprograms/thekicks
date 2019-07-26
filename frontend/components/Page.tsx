@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
 import Header from './Header';
 import Meta from './Meta';
@@ -17,10 +17,10 @@ const InnerPage = styled.div`
 
 const Page = ({ children }) => (
   <StyledPage>
-    <Meta/>
+    <Meta />
     <Header />
     <InnerPage>{children}</InnerPage>
   </StyledPage>
-)
+);
 
 export default Page;

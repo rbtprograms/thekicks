@@ -8,50 +8,42 @@ import DeleteItem from './DeleteItem';
 
 interface Props {
   item: {
-    id: ReactText
-    title: any
-    price: number
-    description: String,
-    image: string
-  }
+    id: ReactText;
+    title: any;
+    price: number;
+    description: String;
+    image: string;
+  };
 }
 
 const Item: React.FunctionComponent<Props> = ({ item }) => (
   <ItemStyles>
-    {item.image ?
-      <img src={item.image} alt={item.title}/>
-      : null
-    }
+    {item.image ? <img src={item.image} alt={item.title} /> : null}
     <Title>
-        <Link
-          href={{
-            pathname: '/item',
-            query: { id: item.id}
-          }}
-        >
-          {item.title}
-        </Link>
+      <Link
+        href={{
+          pathname: '/item',
+          query: { id: item.id },
+        }}
+      >
+        {item.title}
+      </Link>
     </Title>
     <PriceTag>{formatMoney(item.price)}</PriceTag>
     <p>{item.description}</p>
-    <div className='buttonList'>
+    <div className="buttonList">
       <Link
         href={{
           pathname: 'update',
-          query: { id: item.id }
+          query: { id: item.id },
         }}
       >
         <a>Edit</a>
       </Link>
       <button>Add to cart</button>
-      <DeleteItem 
-        id={item.id}
-        text={'Delete'}  
-      />
+      <DeleteItem id={item.id} text={'Delete'} />
     </div>
   </ItemStyles>
 );
-
-
 
 export default Item;
