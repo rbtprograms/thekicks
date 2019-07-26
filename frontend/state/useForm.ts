@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 interface InitalValues {
   title?: string;
-  price?: string;
+  price?: number;
   description?: string;
 }
 

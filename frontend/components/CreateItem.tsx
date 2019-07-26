@@ -42,7 +42,6 @@ const CreateItem: React.FunctionComponent = () => {
           onSubmit={async (e: { preventDefault: () => void }) => {
             e.preventDefault();
             const res = await createItem();
-            console.log(res);
             Router.push({
               pathname: '/item',
               query: { id: res.data.createItem.id },
