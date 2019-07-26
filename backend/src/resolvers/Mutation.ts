@@ -23,6 +23,8 @@
 //   response: Response
 // }
 
+const bcrypt = require('bcryptjs');
+
 module.exports = {
   async createItem(parent, args, context, info) {
     const item = await context.db.mutation.createItem({
@@ -46,5 +48,9 @@ module.exports = {
     const where = { id: args.id };
     const item = await context.db.query.item({ where }, `{ id, title }`);
     return context.db.mutation.deleteItem({ where }, info);
+  },
+  async signup(parent, args, context, info) {
+    args.email = args.email.toLowerCase();
+    const password = await bcrypt.hash(args.password, 10);
   }
 };
