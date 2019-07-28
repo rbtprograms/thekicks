@@ -1,4 +1,4 @@
-import React, { ReactText } from 'react';
+import React from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
@@ -6,14 +6,10 @@ import Item from './Item';
 import Pagination from './Pagination';
 import { perPage } from '../config';
 
-interface Props {
-  page: number
-}
-
 interface RenderProps {
   data: {
     items: Array<{
-      id: ReactText
+      id: number | string
       title: String,
       price: number,
       description: String,
@@ -22,6 +18,10 @@ interface RenderProps {
   },
   error?: any,
   loading: boolean
+}
+
+interface Props {
+  page: number;
 }
 
 const ALL_ITEMS_QUERY = gql`
@@ -52,7 +52,7 @@ const ItemsList = styled.div`
 const Items: React.FunctionComponent<Props> = ({ page }) => {
   return (
     <Center>
-      <Pagination page={page}/>
+      <Pagination page={page} />
       <Query
         query={ALL_ITEMS_QUERY}
         //the below fetch policy forgoes cache entirely
@@ -66,24 +66,21 @@ const Items: React.FunctionComponent<Props> = ({ page }) => {
           } else if (error) {
             dom = <p>Error: {error.message}</p>;
           } else {
-            dom = 
+            dom = (
               <ItemsList>
                 {data.items.map(item => (
-                  <Item
-                    key={item.id}
-                    item={item}
-                  />
+                  <Item key={item.id} item={item} />
                 ))}
               </ItemsList>
-            ;
+            );
           }
           return dom;
         }}
       </Query>
-      <Pagination page={page}/>
+      <Pagination page={page} />
     </Center>
   );
-}
+};
 
 export default Items;
 export { ALL_ITEMS_QUERY };

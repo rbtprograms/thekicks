@@ -1,19 +1,19 @@
-import React from 'react'
+import React from 'react';
 import Link from 'next/link';
-import styled from 'styled-components'
+import styled from 'styled-components';
 import Nav from './Nav';
 import Router from 'next/router';
 import { start as nProgressStart, done as nProgressDone } from 'nprogress';
 
-Router.onRouteChangeStart = () => {
+(Router as any).onRouteChangeStart = () => {
   nProgressStart();
-}
-Router.onRouteChangeComplete = () => {
+};
+(Router as any).onRouteChangeComplete = () => {
   nProgressDone();
-}
-Router.onRouteChangeError = () => {
+};
+(Router as any).onRouteChangeError = () => {
   nProgressDone();
-}
+};
 
 const Logo = styled.h1`
   font-size: 4rem;
@@ -55,19 +55,19 @@ const StyledHeader = styled.header`
 
 const Header = () => (
   <StyledHeader>
-    <div className='bar'>
+    <div className="bar">
       <Logo>
-        <Link href='/'>
-          <a href=''>theKicks</a>
+        <Link href="/">
+          <a href="">theKicks</a>
         </Link>
       </Logo>
-      <Nav/>
+      <Nav />
     </div>
-    <div className='subBar'>
+    <div className="subBar">
       <p>Search</p>
     </div>
     <div>Cart</div>
   </StyledHeader>
-)
+);
 
 export default Header;
