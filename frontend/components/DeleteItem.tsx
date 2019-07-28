@@ -35,7 +35,7 @@ const DeleteItem: React.FunctionComponent<Props> = ({ text, id }) => {
       variables={{ id }}
       update={update}
     >
-      {(deleteItem: () => void, { error }) => (
+      {(deleteItem: () => void, _) => (
         <button
           onClick={() => {
             if (confirm('Are you sure?')) {

@@ -1,4 +1,4 @@
-import React, { Fragment, ReactText } from 'react';
+import React, { ReactText } from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import Error from './DisplayErrors';
