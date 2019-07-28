@@ -3,7 +3,7 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import Router from 'next/router';
 import Form from './styles/Form';
-import formatMoney from '../lib/formatMoney';
+// import formatMoney from '../lib/formatMoney';
 import useForm from '../state/useForm';
 import Input from './shared/Input';
 import DisplayErrors from './DisplayErrors';
@@ -31,7 +31,7 @@ const CREATE_ITEM_MUTATION = gql`
 const CreateItem: React.FunctionComponent = () => {
   const initialValues = {
     title: '',
-    price: '',
+    price: 0,
     description: '',
   };
   const { values, handleChange, handleUpload } = useForm(initialValues);
@@ -42,10 +42,7 @@ const CreateItem: React.FunctionComponent = () => {
           onSubmit={async (e: { preventDefault: () => void }) => {
             e.preventDefault();
             const res = await createItem();
-            Router.push({
-              pathname: '/item',
-              query: { id: res.data.createItem.id },
-            });
+            Router.push(`/item?id=${res.data.createItem.id}`);
           }}
         >
           {error && <DisplayErrors error={error} />}

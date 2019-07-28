@@ -5,13 +5,13 @@ import Nav from './Nav';
 import Router from 'next/router';
 import { start as nProgressStart, done as nProgressDone } from 'nprogress';
 
-Router.onRouteChangeStart = () => {
+(Router as any).onRouteChangeStart = () => {
   nProgressStart();
 };
-Router.onRouteChangeComplete = () => {
+(Router as any).onRouteChangeComplete = () => {
   nProgressDone();
 };
-Router.onRouteChangeError = () => {
+(Router as any).onRouteChangeError = () => {
   nProgressDone();
 };
 

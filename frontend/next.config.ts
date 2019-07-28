@@ -1,2 +1,2 @@
-const withTypescript = require('@zeit/next-typescript');
+import withTypescript from '@zeit/next-typescript';
 module.exports = withTypescript();
