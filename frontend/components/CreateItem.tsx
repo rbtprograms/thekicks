@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import Router from 'next/router';
 import Form from './styles/Form';
 // import formatMoney from '../lib/formatMoney';
-import useForm from '../state/useForm';
+import useItemForm from '../state/useItemForm';
 import Input from './shared/Input';
 import DisplayErrors from './DisplayErrors';
 
@@ -34,7 +34,7 @@ const CreateItem: React.FunctionComponent = () => {
     price: 0,
     description: '',
   };
-  const { values, handleChange, handleUpload } = useForm(initialValues);
+  const { values, handleChange, handleUpload } = useItemForm(initialValues);
   return (
     <Mutation mutation={CREATE_ITEM_MUTATION} variables={values}>
       {(createItem: () => any, { loading, error }: any) => (

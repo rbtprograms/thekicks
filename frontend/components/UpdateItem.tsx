@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 // import Router from 'next/router';
 import Form from './styles/Form';
 // import formatMoney from '../lib/formatMoney';
-import useForm from '../state/useForm';
+import useItemForm from '../state/useItemForm';
 import Input from './shared/Input';
 import DisplayErrors from './DisplayErrors';
 
@@ -46,7 +46,7 @@ interface Props {
 
 const UpdateItem: React.FunctionComponent<Props> = ({ id }) => {
   const initialValues = {};
-  const { values, handleChange } = useForm(initialValues);
+  const { values, handleChange } = useItemForm(initialValues);
   const handleUpdateItem = async (e, mutation) => {
     e.preventDefault();
     const res = await mutation({

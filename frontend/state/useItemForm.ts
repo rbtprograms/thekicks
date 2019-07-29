@@ -18,7 +18,7 @@ interface FormProps {
   };
 }
 
-const useForm = (initialValues: InitalValues): FormProps => {
+const useItemForm = (initialValues: InitalValues): FormProps => {
   const [values, setValues] = useState(initialValues);
 
   const handleChange = event => {
@@ -60,4 +60,4 @@ const useForm = (initialValues: InitalValues): FormProps => {
   };
 };
 
-export default useForm;
+export default useItemForm;

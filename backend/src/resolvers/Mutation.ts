@@ -73,7 +73,7 @@ module.exports = {
     //create token
     const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
     //set jwt as cookie on the reponse
-    context.reponse.cookie("token", token, {
+    context.response.cookie("token", token, {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 365
     });
