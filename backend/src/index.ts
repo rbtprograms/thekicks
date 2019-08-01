@@ -8,7 +8,7 @@ const server = require("./createServer")();
 server.express.use(cookieParser());
 server.express.use((req, res, next) => {
   const { token } = req.cookies;
-  console.log('COOKIES', req.cookies);
+  console.log('TOKEN', token);
   next();
 });
 
