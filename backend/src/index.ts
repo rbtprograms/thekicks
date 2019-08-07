@@ -1,21 +1,12 @@
-const cookieParser = require("cookie-parser");
-const jwt = require('jsonwebtoken')
-
+import cookieParser from "cookie-parser";
+import { tokenMiddleware } from "./utils";
 require("dotenv").config({ path: "variables.env" });
 
 const server = require("./createServer")();
 
 //express middleware for JWT and populate user
 server.express.use(cookieParser());
-server.express.use((req, res, next) => {
-  const { token } = req.cookies;
-  if (token) {
-    const { userId } = jwt.verify(token, process.env.APP_SECRET);
-    //tack userId onto the request
-    req.userId = userId;
-  }
-  next();
-});
+server.express.use(tokenMiddleware);
 
 server.start(
   {
