@@ -24,7 +24,7 @@
 // }
 
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 
 module.exports = {
   async createItem(parent, args, context, info) {

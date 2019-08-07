@@ -49,13 +49,12 @@ const UpdateItem: React.FunctionComponent<Props> = ({ id }) => {
   const { values, handleChange } = useItemForm(initialValues);
   const handleUpdateItem = async (e, mutation) => {
     e.preventDefault();
-    const res = await mutation({
+    await mutation({
       variables: {
         id: id,
         ...values,
       },
     });
-    console.log(res);
   };
   return (
     <Query query={SINGLE_ITEM_QUERY} variables={{ id: id }}>
