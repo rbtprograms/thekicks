@@ -2,37 +2,37 @@ import React from 'react';
 import { Mutation } from 'react-apollo';
 import Form from './styles/Form';
 import gql from 'graphql-tag';
-import useSignupForm from '../state/useSignupForm';
+import useSigninForm from '../state/useSigninForm';
 import DisplayErrors from './DisplayErrors';
 
-const SIGNUP_MUTATION = gql`
-  mutation SIGNUP_MUTATION($email: String!, $name: String!, $password: String!) {
-    signup(email: $email, name: $name, password: $password) {
+const SIGNIN_MUTATION = gql`
+  mutation SIGNIN_MUTATION($email: String!, $password: String!) {
+    signin(email: $email, password: $password) {
       id
       email
       name
     }
   }
 `;
-const Signup = () => {
+const Signin = () => {
   const initialValues = {
     name: '',
     password: '',
     email: '',
   };
-  const { values, handleChange } = useSignupForm(initialValues);
+  const { values, handleChange } = useSigninForm(initialValues);
   return (
-    <Mutation mutation={SIGNUP_MUTATION} variables={values}>
-      {(signup: () => void, { error, loading }: any) => (
+    <Mutation mutation={SIGNIN_MUTATION} variables={values}>
+      {(signin: () => void, { error, loading }: any) => (
         <Form
           method="post"
           onSubmit={(e: Event) => {
             e.preventDefault();
-            signup();
+            signin();
           }}
         >
           <fieldset disabled={loading} aria-busy={loading}>
-            <h2>Sign up</h2>
+            <h2>Sign in</h2>
             {error && <DisplayErrors error={error} />}
             <label htmlFor="email">
               email
@@ -40,15 +40,6 @@ const Signup = () => {
                 type="text"
                 name="email"
                 value={values.email}
-                onChange={handleChange}
-              />
-            </label>
-            <label htmlFor="name">
-              name
-              <input
-                type="text"
-                name="name"
-                value={values.name}
                 onChange={handleChange}
               />
             </label>
@@ -62,7 +53,7 @@ const Signup = () => {
               />
             </label>
 
-            <button type="submit">Sign Up!</button>
+            <button type="submit">Sign In!</button>
           </fieldset>
         </Form>
       )}
@@ -70,4 +61,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Signin;

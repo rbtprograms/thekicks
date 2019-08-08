@@ -1,1 +1,2 @@
-module.exports = require('stripe')(process.env.STRIPE_SECRET);
+
+export = require('stripe')(process.env.STRIPE_SECRET);
