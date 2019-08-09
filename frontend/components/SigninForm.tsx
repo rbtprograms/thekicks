@@ -1,9 +1,10 @@
 import React from 'react';
 import { Mutation } from 'react-apollo';
-import Form from './styles/Form';
 import gql from 'graphql-tag';
+import Form from './styles/Form';
 import useSigninForm from '../state/useSigninForm';
 import DisplayErrors from './DisplayErrors';
+import { CURRENT_USER_QUERY } from './User';
 
 const SIGNIN_MUTATION = gql`
   mutation SIGNIN_MUTATION($email: String!, $password: String!) {
@@ -22,7 +23,11 @@ const Signin = () => {
   };
   const { values, handleChange } = useSigninForm(initialValues);
   return (
-    <Mutation mutation={SIGNIN_MUTATION} variables={values}>
+    <Mutation
+      mutation={SIGNIN_MUTATION}
+      variables={values}
+      refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+    >
       {(signin: () => void, { error, loading }: any) => (
         <Form
           method="post"
