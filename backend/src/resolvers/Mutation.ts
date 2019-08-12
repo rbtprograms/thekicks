@@ -25,10 +25,9 @@
 
 import bcrypt = require("bcryptjs");
 import jwt = require("jsonwebtoken");
-import { singleFieldOnlyMessage } from "graphql/validation/rules/SingleFieldSubscriptions";
 
 module.exports = {
-  async createItem(_, args, context, info) {
+  async createItem(_parent, args, context, info) {
     const item = await context.db.mutation.createItem(
       {
         data: {
@@ -39,7 +38,7 @@ module.exports = {
     );
     return item;
   },
-  updateItem(_, args, context, info) {
+  updateItem(_parent, args, context, info) {
     const updates = { ...args };
     delete updates.id;
     return context.db.mutation.updateItem(
@@ -52,12 +51,12 @@ module.exports = {
       info
     );
   },
-  async deleteItem(_, args, context, info) {
+  async deleteItem(_parent, args, context, info) {
     const where = { id: args.id };
     await context.db.query.item({ where }, `{ id, title }`);
     return context.db.mutation.deleteItem({ where }, info);
   },
-  async signup(_, args, context, info) {
+  async signup(_parent, args, context, info) {
     args.email = args.email.toLowerCase();
     const password = await bcrypt.hash(args.password, 10);
     const user = await context.db.mutation.createUser(
@@ -80,7 +79,7 @@ module.exports = {
     });
     return user;
   },
-  async signin(parent, args, context, info) {
+  async signin(_parent, args, context, _info) {
     const user = await context.db.query.user({ where: { email: args.email } });
     if (!user) {
       throw new Error(`No user found for ${args.email}`);
@@ -95,5 +94,9 @@ module.exports = {
       maxAge: 1000 * 60 * 60 * 24 * 365
     });
     return user;
+  },
+  signout(_parent, _args, context, _info) {
+    context.response.clearCookie('token');
+    return { message: 'Goodbye' };
   }
 };

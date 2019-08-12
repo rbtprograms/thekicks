@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, ReactElement } from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
@@ -17,7 +17,7 @@ const CURRENT_USER_QUERY = gql`
   }
 `;
 
-const User = (props: Props) => (
+const User = (props: Props): ReactElement => (
   <Query {...props} query={CURRENT_USER_QUERY}>
     {payload => props.children(payload)}
   </Query>

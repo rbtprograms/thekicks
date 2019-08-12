@@ -4,9 +4,14 @@ import Form from './styles/Form';
 import gql from 'graphql-tag';
 import useSignupForm from '../state/useSignupForm';
 import DisplayErrors from './DisplayErrors';
+import CURRENT_USER_QUERY from './User';
 
 const SIGNUP_MUTATION = gql`
-  mutation SIGNUP_MUTATION($email: String!, $name: String!, $password: String!) {
+  mutation SIGNUP_MUTATION(
+    $email: String!
+    $name: String!
+    $password: String!
+  ) {
     signup(email: $email, name: $name, password: $password) {
       id
       email
@@ -22,7 +27,11 @@ const Signup = () => {
   };
   const { values, handleChange } = useSignupForm(initialValues);
   return (
-    <Mutation mutation={SIGNUP_MUTATION} variables={values}>
+    <Mutation
+      mutation={SIGNUP_MUTATION}
+      variables={values}
+      refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+    >
       {(signup: () => void, { error, loading }: any) => (
         <Form
           method="post"
