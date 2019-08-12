@@ -1,33 +1,30 @@
-// type Args = {
-//   id: string,
-//   description: string,
-//   price: number,
-//   title: string,
-//   image?: string,
-//   largeImage?: string,
-// }
-
-// type Context = {
-//   db: {
-//     mutation: {
-//       createItem: ({ data }, info) => Object,
-//       updateItem: ({ data, where }, info) => Object,
-//       deleteItem: ({ where }, info) => Object
-//     },
-//     query: {
-//       item({ where }, rawGQL)
-//     }
-//   },
-//   fragmentReplacements: Array<any>,
-//   request: Request,
-//   response: Response
-// }
-
 import bcrypt = require("bcryptjs");
 import jwt = require("jsonwebtoken");
 
+interface CreateItemArgs {
+  title?: string, 
+  description?: string, 
+  price?: number, 
+  image?: string, 
+  largeImage?: string
+}
+
+interface UpdateItemArgs {
+  id: string,
+  title?: string, 
+  description?: string, 
+  price?: number, 
+  image?: string, 
+  largeImage?: string
+}
+
+interface AuthArgs {
+  email: string,
+  password: string
+}
+
 module.exports = {
-  async createItem(_parent, args, context, info) {
+  async createItem(_parent, args: CreateItemArgs, context, info) {
     const item = await context.db.mutation.createItem(
       {
         data: {
@@ -38,7 +35,7 @@ module.exports = {
     );
     return item;
   },
-  updateItem(_parent, args, context, info) {
+  updateItem(_parent, args: UpdateItemArgs, context, info) {
     const updates = { ...args };
     delete updates.id;
     return context.db.mutation.updateItem(
@@ -51,12 +48,12 @@ module.exports = {
       info
     );
   },
-  async deleteItem(_parent, args, context, info) {
+  async deleteItem(_parent, args: { id: string }, context, info) {
     const where = { id: args.id };
     await context.db.query.item({ where }, `{ id, title }`);
     return context.db.mutation.deleteItem({ where }, info);
   },
-  async signup(_parent, args, context, info) {
+  async signup(_parent, args: AuthArgs, context, info) {
     args.email = args.email.toLowerCase();
     const password = await bcrypt.hash(args.password, 10);
     const user = await context.db.mutation.createUser(
@@ -79,7 +76,7 @@ module.exports = {
     });
     return user;
   },
-  async signin(_parent, args, context, _info) {
+  async signin(_parent, args: AuthArgs, context, _info) {
     const user = await context.db.query.user({ where: { email: args.email } });
     if (!user) {
       throw new Error(`No user found for ${args.email}`);
