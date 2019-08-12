@@ -94,5 +94,9 @@ module.exports = {
       maxAge: 1000 * 60 * 60 * 24 * 365
     });
     return user;
+  },
+  signout(_parent, _args, context, _info) {
+    context.response.clearCookie('token');
+    return { message: 'Goodbye' };
   }
 };
