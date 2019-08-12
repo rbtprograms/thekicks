@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Mutation } from 'react-apollo';
 import Form from './styles/Form';
 import gql from 'graphql-tag';
@@ -19,7 +19,7 @@ const SIGNUP_MUTATION = gql`
     }
   }
 `;
-const Signup = () => {
+const Signup = (): ReactElement => {
   const initialValues = {
     name: '',
     password: '',

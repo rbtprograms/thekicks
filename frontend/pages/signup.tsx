@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components'
 import SignupForm from '../components/SignupForm';
 import SigninForm from '../components/SigninForm';
@@ -9,7 +9,7 @@ const Columns = styled.div`
   grid-gap: 20px;
 `
 
-const Signup = () => (
+const Signup = (): ReactElement => (
   <Columns>
     <SignupForm />
     <SigninForm />
