@@ -120,6 +120,41 @@ module.exports = {
     //email them the reset token
   },
   async resetPassword(_parent, args, context, _info) {
-
+    if (args.password !== args.confirmPassword) {
+      throw new Error('passwords do not match');
+    }
+    //check if its a legit reset token
+    const [user] = await context.db.query.users({
+      where: {
+        resetToken: args.resetToken,
+        resetTokenExpiry_gte: Date.now() - 360000
+      }
+    });
+    //check if its expired
+    if (!user) {
+      throw new Error('You token is expired, please try again')
+    }
+    //hash their new password
+    const password = await bcrypt.hash(args.password, 10);
+    //save the new password
+    const updatedUser = await context.db.mutation.updateUser({
+      where: {
+        email: user.email
+      },
+      data: {
+        password,
+        resetToken: null,
+        resetTokenExpiry: null
+      }
+    });
+    //generate jwt
+    const token = jwt.sign({ userId: updatedUser.id }, process.env.APP_SECRET)
+    //set the jwt cookie
+    context.response.cookie('token', token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 365
+    });
+    //return the new suer
+    return updatedUser;
   }
 };
