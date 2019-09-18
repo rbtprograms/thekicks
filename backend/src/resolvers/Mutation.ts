@@ -1,5 +1,7 @@
 import bcrypt = require("bcryptjs");
 import jwt = require("jsonwebtoken");
+import * as crypto from 'crypto';
+import * as util from 'util';
 
 interface CreateItemArgs {
   title?: string, 
@@ -95,5 +97,29 @@ module.exports = {
   signout(_parent, _args, context, _info) {
     context.response.clearCookie('token');
     return { message: 'Goodbye' };
+  },
+  async requestReset(_parent, args: AuthArgs, context, _info) {
+    //check if user is real
+    const user = await context.db.query.user({ where: { email: args.email }});
+    if (!user) {
+      throw new Error(`No such user found for email ${args.email}`);
+    }
+    //set a reset token and expiry on user
+    const cryptoFunctionPromiseWrapper = util.promisify(crypto.randomBytes);
+    const generatedRandomBytes = await cryptoFunctionPromiseWrapper(20);
+    const resetToken = generatedRandomBytes.toString('hex');
+    const resetTokenExpiry = Date.now() + 360000; //1 hour
+    const res = await context.db.mutation.updateUser({
+      where: {email: args.email},
+      data: { 
+        resetToken, 
+        resetTokenExpiry
+      }
+    });
+    console.log(res);
+    //email them the reset token
+  },
+  async resetPassword(_parent, args, context, _info) {
+
   }
 };
