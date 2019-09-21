@@ -98,8 +98,9 @@ module.exports = {
     context.response.clearCookie('token');
     return { message: 'Goodbye' };
   },
-  async requestReset(_parent, args: AuthArgs, context, _info) {
+  async requestReset(_parent, args: { email: string }, context, _info) {
     //check if user is real
+    console.log('***IN REQUEST RESET***');
     const user = await context.db.query.user({ where: { email: args.email }});
     if (!user) {
       throw new Error(`No such user found for email ${args.email}`);

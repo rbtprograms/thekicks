@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react';
 import styled from 'styled-components'
 import SignupForm from '../components/SignupForm';
 import SigninForm from '../components/SigninForm';
+import RequestReset from '../components/RequestReset';
 
 const Columns = styled.div`
   display: grid;
@@ -13,6 +14,7 @@ const Signup = (): ReactElement => (
   <Columns>
     <SignupForm />
     <SigninForm />
+    <RequestReset />
   </Columns>
 );
 

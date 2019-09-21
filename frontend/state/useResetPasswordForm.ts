@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
 interface Values {
-  email: string;
+  email?: string;
   password?: string;
+  confirmPassword?: string;
 }
 
 interface FormProps {
