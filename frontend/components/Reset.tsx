@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import Form from './styles/Form';
 import useResetPasswordForm from '../state/useResetPasswordForm';
 import DisplayErrors from './DisplayErrors';
+import { CURRENT_USER_QUERY } from './User';
 
 interface Props {
   resetToken: string
@@ -31,6 +32,7 @@ const Reset: React.FunctionComponent<Props> = ({ resetToken }) => {
         ...values,
         resetToken
       }}
+      refetchQueries={[{ query: CURRENT_USER_QUERY }]}
     >
       {(reset: () => void, { error, loading }: any) => (
         <Form
