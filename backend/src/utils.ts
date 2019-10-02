@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import * as db from "./db";
 
 export function hasPermission(user, permissionsNeeded) {
   const matchedPermissions = user.permissions.filter(permissionTheyHave =>
@@ -23,5 +24,19 @@ export function tokenMiddleware(req, _res, next) {
     //tack userId onto the request
     req.userId = userId;
   }
+  next();
+}
+
+export async function addUserToRequest(req, _res, next) {
+  if (!req.userId) {
+    return next();
+  }
+  //@ts-ignore
+  const user = await db.query.user(
+    { where: { id: req.userId } },
+    "{ id, permissions, email, name }"
+  );
+  console.log(user);
+  req.user = user;
   next();
 }

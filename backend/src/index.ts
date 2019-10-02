@@ -1,5 +1,5 @@
 import cookieParser from "cookie-parser";
-import { tokenMiddleware } from "./utils";
+import { tokenMiddleware, addUserToRequest } from "./utils";
 require("dotenv").config({ path: "variables.env" });
 
 const server = require("./createServer")();
@@ -7,6 +7,7 @@ const server = require("./createServer")();
 //express middleware for JWT and populate user
 server.express.use(cookieParser());
 server.express.use(tokenMiddleware);
+server.express.use(addUserToRequest);
 
 server.start(
   {

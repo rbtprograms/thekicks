@@ -1,4 +1,5 @@
 import { Prisma } from "prisma-binding";
+require("dotenv").config({ path: "variables.env" });
 
 module.exports = new Prisma({
   typeDefs: "src/generated/prisma.graphql",
